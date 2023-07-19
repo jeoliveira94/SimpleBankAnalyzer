@@ -35,5 +35,8 @@ public class BankStatementAnalyzer {
 
         System.out.println("The total salary received is "
                 + bankStatementProcessor.calculateTotalForCategory("Salary"));
+
+        System.out.println("The maximum transaction between January and June is "
+                + bankStatementProcessor.findMaxTransactionInRange(Month.JANUARY, Month.JUNE));
     }
 }

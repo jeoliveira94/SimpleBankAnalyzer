@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
@@ -34,5 +35,17 @@ public class BankStatementProcessor {
             }
         }
         return total;
+    }
+
+    public double findMaxTransactionInRange(final Month startMonth, final Month endMonth) {
+        double maximumTransacion = Double.MIN_VALUE;
+        for(final BankTransaction bankTransaction: bankTransactions) {
+            final Month transactionMonth = bankTransaction.getDate().getMonth();
+            if(transactionMonth.compareTo(startMonth) >= 0 && transactionMonth.compareTo(endMonth) <= 0) {
+                if(bankTransaction.getAmount() > maximumTransacion) maximumTransacion = bankTransaction.getAmount();
+            }
+        }
+
+        return maximumTransacion;
     }
 }
