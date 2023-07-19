@@ -38,5 +38,8 @@ public class BankStatementAnalyzer {
 
         System.out.println("The maximum transaction between January and June is "
                 + bankStatementProcessor.findMaxTransactionInRange(Month.JANUARY, Month.JUNE));
+
+        System.out.println("The minimum transaction between January and June is "
+                + bankStatementProcessor.findMinTransactionInRange(Month.JANUARY, Month.JUNE));
     }
 }

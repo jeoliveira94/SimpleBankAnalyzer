@@ -48,4 +48,16 @@ public class BankStatementProcessor {
 
         return maximumTransacion;
     }
+
+    public double findMinTransactionInRange(final Month startMonth, final Month endMonth) {
+        double minimumTransacion = Double.MAX_VALUE;
+        for(final BankTransaction bankTransaction: bankTransactions) {
+            final Month transactionMonth = bankTransaction.getDate().getMonth();
+            if(transactionMonth.compareTo(startMonth) >= 0 && transactionMonth.compareTo(endMonth) <= 0) {
+                if(bankTransaction.getAmount() < minimumTransacion) minimumTransacion = bankTransaction.getAmount();
+            }
+        }
+
+        return minimumTransacion;
+    }
 }
