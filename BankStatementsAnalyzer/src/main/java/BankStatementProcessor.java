@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +37,16 @@ public class BankStatementProcessor {
         return total;
     }
 
+    public List<BankTransaction> findTransactions(final BankTransactionFilter bankTransactionFilter) {
+        final List<BankTransaction> result = new ArrayList<>();
+        for(final BankTransaction bankTransaction: bankTransactions) {
+            if(bankTransactionFilter.test(bankTransaction)) {
+                result.add(bankTransaction);
+            }
+        }
+        return result;
+    }
+
     public double findMaxTransactionInRange(final Month startMonth, final Month endMonth) {
         double maximumTransacion = Double.MIN_VALUE;
         for(final BankTransaction bankTransaction: bankTransactions) {
@@ -63,33 +72,15 @@ public class BankStatementProcessor {
     }
 
     public List<BankTransaction> findTransactionsGreaterThanEqual(final int amount) {
-        final List<BankTransaction> result = new ArrayList<>();
-        for(final BankTransaction bankTransaction: bankTransactions) {
-            if(bankTransaction.getAmount() >= amount) {
-                result.add(bankTransaction);
-            }
-        }
-        return result;
+        return findTransactions(bankTransaction -> bankTransaction.getAmount() >= amount);
     }
 
     public List<BankTransaction> findTransactionsInMonth(final Month month) {
-        final List<BankTransaction> result = new ArrayList<>();
-        for(final BankTransaction bankTransaction: bankTransactions) {
-            if(bankTransaction.getDate().getMonth() == month) {
-                result.add(bankTransaction);
-            }
-        }
-        return result;
+        return findTransactions(bankTransaction -> bankTransaction.getDate().getMonth() == month);
     }
 
-    public List<BankTransaction> findTransactionsInMonthAndGreater(final Month month,
-                                                                   final int amount) {
-        final List<BankTransaction> result = new ArrayList<>();
-        for(final BankTransaction bankTransaction: bankTransactions) {
-            if(bankTransaction.getDate().getMonth() == month && bankTransaction.getAmount() >= amount) {
-                result.add(bankTransaction);
-            }
-        }
-        return result;
+    public List<BankTransaction> findTransactionsInMonthAndGreater(final Month month, final int amount) {
+        return findTransactions(bankTransaction -> bankTransaction.getDate().getMonth() == month
+                && bankTransaction.getAmount() >= amount);
     }
 }
