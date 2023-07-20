@@ -48,27 +48,22 @@ public class BankStatementProcessor {
     }
 
     public double findMaxTransactionInRange(final Month startMonth, final Month endMonth) {
-        double maximumTransacion = Double.MIN_VALUE;
-        for(final BankTransaction bankTransaction: bankTransactions) {
-            final Month transactionMonth = bankTransaction.getDate().getMonth();
-            if(transactionMonth.compareTo(startMonth) >= 0 && transactionMonth.compareTo(endMonth) <= 0) {
-                if(bankTransaction.getAmount() > maximumTransacion) maximumTransacion = bankTransaction.getAmount();
-            }
-        }
+        double maximumTransaction = Double.MIN_VALUE;
 
-        return maximumTransacion;
+        final List<BankTransaction> bankTransactionsInRange = findTransactions(new FindTransactionInMonthRange(startMonth, endMonth));
+        for(final BankTransaction bankTransaction: bankTransactionsInRange) {
+            if(bankTransaction.getAmount() > maximumTransaction) maximumTransaction = bankTransaction.getAmount();
+        }
+        return maximumTransaction;
     }
 
     public double findMinTransactionInRange(final Month startMonth, final Month endMonth) {
-        double minimumTransacion = Double.MAX_VALUE;
-        for(final BankTransaction bankTransaction: bankTransactions) {
-            final Month transactionMonth = bankTransaction.getDate().getMonth();
-            if(transactionMonth.compareTo(startMonth) >= 0 && transactionMonth.compareTo(endMonth) <= 0) {
-                if(bankTransaction.getAmount() < minimumTransacion) minimumTransacion = bankTransaction.getAmount();
-            }
+        double minimumTransaction = Double.MAX_VALUE;
+        final List<BankTransaction> bankTransactionsInRange = findTransactions(new FindTransactionInMonthRange(startMonth, endMonth));
+        for(final BankTransaction bankTransaction: bankTransactionsInRange) {
+            if(bankTransaction.getAmount() < minimumTransaction) minimumTransaction = bankTransaction.getAmount();
         }
-
-        return minimumTransacion;
+        return minimumTransaction;
     }
 
     public List<BankTransaction> findTransactionsGreaterThanEqual(final int amount) {
