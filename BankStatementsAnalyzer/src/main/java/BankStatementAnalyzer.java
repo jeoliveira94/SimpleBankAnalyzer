@@ -7,6 +7,7 @@ import java.util.List;
 
 public class BankStatementAnalyzer {
     private static final String RESOURCES = "src/main/resources/";
+    final HtmlExporter htmlExporter = new HtmlExporter();
 
     public static void main(final String... args) throws IOException {
         final BankStatementAnalyzer bankStatementAnalyzer = new BankStatementAnalyzer();
@@ -37,9 +38,16 @@ public class BankStatementAnalyzer {
                 + bankStatementProcessor.calculateTotalForCategory("Salary"));
 
         System.out.println("The maximum transaction between January and June is "
-                + bankStatementProcessor.findMaxTransactionInRange(Month.JANUARY, Month.JUNE));
+                + bankStatementProcessor.findMaxTransactionInRange(Month.JANUARY, Month.JUNE).getAmount());
 
         System.out.println("The minimum transaction between January and June is "
-                + bankStatementProcessor.findMinTransactionInRange(Month.JANUARY, Month.JUNE));
+                + bankStatementProcessor.findMinTransactionInRange(Month.JANUARY, Month.JUNE).getAmount());
+
+        System.out.println("The statistics exported to HTML \n"
+                + htmlExporter.export(new SummaryStatistics(
+                    bankStatementProcessor.calculateTotalAmount(),
+                    bankStatementProcessor.calculateAverageAmount(),
+                    bankStatementProcessor.findMinTransaction(b -> true).getAmount(),
+                    bankStatementProcessor.findMaxTransaction(b -> true).getAmount())));
     }
 }
