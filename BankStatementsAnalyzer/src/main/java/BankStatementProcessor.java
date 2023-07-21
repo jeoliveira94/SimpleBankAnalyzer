@@ -21,6 +21,10 @@ public class BankStatementProcessor {
         return summarizeTransactions((acc, bankTransaction) -> acc + bankTransaction.getAmount());
     }
 
+    public double calculateAverageAmount() {
+        return calculateTotalAmount() / bankTransactions.size();
+    }
+
     public double calculateTotalInMonth(final Month month) {
         return summarizeTransactions((acc, bankTransaction) ->
                         bankTransaction.getDate().getMonth() == month ? acc + bankTransaction.getAmount() : acc);
@@ -63,6 +67,7 @@ public class BankStatementProcessor {
             if(bankTransaction.getAmount() < minimumTransaction) minimumTransaction = bankTransaction.getAmount();
         }
         return minimumTransaction;
+        return findMinTransaction(new FindTransactionInMonthRange(startMonth, endMonth));
     }
 
     public List<BankTransaction> findTransactionsGreaterThanEqual(final int amount) {
