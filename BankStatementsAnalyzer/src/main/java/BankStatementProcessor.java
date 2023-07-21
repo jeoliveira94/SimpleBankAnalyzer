@@ -50,23 +50,29 @@ public class BankStatementProcessor {
         return result;
     }
 
-    public double findMaxTransactionInRange(final Month startMonth, final Month endMonth) {
-        double maximumTransaction = Double.MIN_VALUE;
-
-        final List<BankTransaction> bankTransactionsInRange = findTransactions(new FindTransactionInMonthRange(startMonth, endMonth));
+    public BankTransaction findMinTransaction(final BankTransactionFilter bankTransactionFilter) {
+        BankTransaction minimumTransaction = this.bankTransactions.get(0);
+        final List<BankTransaction> bankTransactionsInRange = findTransactions(bankTransactionFilter);
         for(final BankTransaction bankTransaction: bankTransactionsInRange) {
-            if(bankTransaction.getAmount() > maximumTransaction) maximumTransaction = bankTransaction.getAmount();
+            if(bankTransaction.getAmount() < minimumTransaction.getAmount()) minimumTransaction = bankTransaction;
+        }
+        return minimumTransaction;
+    }
+
+    public BankTransaction findMaxTransaction(final BankTransactionFilter bankTransactionFilter) {
+        BankTransaction maximumTransaction = this.bankTransactions.get(0);
+        final List<BankTransaction> bankTransactionsInRange = findTransactions(bankTransactionFilter);
+        for(final BankTransaction bankTransaction: bankTransactionsInRange) {
+            if(bankTransaction.getAmount() > maximumTransaction.getAmount()) maximumTransaction = bankTransaction;
         }
         return maximumTransaction;
     }
 
-    public double findMinTransactionInRange(final Month startMonth, final Month endMonth) {
-        double minimumTransaction = Double.MAX_VALUE;
-        final List<BankTransaction> bankTransactionsInRange = findTransactions(new FindTransactionInMonthRange(startMonth, endMonth));
-        for(final BankTransaction bankTransaction: bankTransactionsInRange) {
-            if(bankTransaction.getAmount() < minimumTransaction) minimumTransaction = bankTransaction.getAmount();
-        }
-        return minimumTransaction;
+    public BankTransaction findMaxTransactionInRange(final Month startMonth, final Month endMonth) {
+        return findMaxTransaction(new FindTransactionInMonthRange(startMonth, endMonth));
+    }
+
+    public BankTransaction findMinTransactionInRange(final Month startMonth, final Month endMonth) {
         return findMinTransaction(new FindTransactionInMonthRange(startMonth, endMonth));
     }
 
