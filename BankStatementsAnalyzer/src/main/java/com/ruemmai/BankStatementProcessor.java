@@ -1,3 +1,9 @@
+package com.ruemmai;
+
+import com.ruemmai.filters.BankTransactionFilter;
+import com.ruemmai.filters.FindTransactionInMonthRange;
+import com.ruemmai.models.BankTransaction;
+
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;

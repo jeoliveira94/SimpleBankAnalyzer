@@ -1,3 +1,11 @@
+package com.ruemmai;
+
+import com.ruemmai.exporters.HtmlExporter;
+import com.ruemmai.models.BankTransaction;
+import com.ruemmai.models.SummaryStatistics;
+import com.ruemmai.parsers.BankStatementCSVParser;
+import com.ruemmai.parsers.BankStatementParser;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

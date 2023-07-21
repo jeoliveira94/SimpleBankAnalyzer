@@ -1,3 +1,7 @@
+package com.ruemmai.filters;
+
+import com.ruemmai.models.BankTransaction;
+
 import java.time.Month;
 
 public class FindTransactionInMonthRange implements BankTransactionFilter{

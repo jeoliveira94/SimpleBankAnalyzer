@@ -1,3 +1,5 @@
+package com.ruemmai.models;
+
 public class SummaryStatistics {
     private final double sum;
     private final double max;

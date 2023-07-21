@@ -1,5 +1,8 @@
+import com.ruemmai.models.BankTransaction;
 import org.junit.Assert;
 import org.junit.Test;
+import com.ruemmai.parsers.BankStatementCSVParser;
+import com.ruemmai.parsers.BankStatementParser;
 
 import java.time.LocalDate;
 import java.time.Month;

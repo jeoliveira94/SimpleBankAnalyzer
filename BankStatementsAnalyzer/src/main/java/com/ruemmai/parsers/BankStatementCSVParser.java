@@ -1,3 +1,7 @@
+package com.ruemmai.parsers;
+
+import com.ruemmai.models.BankTransaction;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

@@ -1,3 +1,7 @@
+package com.ruemmai.exporters;
+
+import com.ruemmai.models.SummaryStatistics;
+
 public class HtmlExporter implements Exporter {
     @Override
     public String export(final SummaryStatistics summaryStatistics) {
